@@ -5,6 +5,8 @@ import { throwError, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 import { Router } from '@angular/router';
 
+import { environment } from '../../environments/environment';
+
 export interface AuthResponseData {
     kind: string;
     idToken: string;
@@ -25,13 +27,11 @@ export class AuthService {
     constructor(private http: HttpClient, private router: Router) {}
 
     signUpUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]';
-    signUpApiKey = 'AIzaSyA6phXRtg-eefOkGWAJsspAg9FrlcOMMOk';
-    signUpUrlWithApiKey = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyA6phXRtg-eefOkGWAJsspAg9FrlcOMMOk';
+    signUpUrlWithApiKey = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`;
 
     loginUrl = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]';
-    loginApiKey = 'AIzaSyA6phXRtg-eefOkGWAJsspAg9FrlcOMMOk';
     loginUrlWithApiKey =
-    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyA6phXRtg-eefOkGWAJsspAg9FrlcOMMOk';
+    `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIKey}`;
 
     signUp(email: string, password: string) {
         return this.http.post<AuthResponseData>(this.signUpUrlWithApiKey,
